@@ -15,8 +15,14 @@ public class Main {
 
     MessageBus bus = new MessageBus(new MicrometerMetrics(new LongGauges(new ConcurrentHashMap<>()), registry));
 
-    bus.registerConsumer("foo", s -> System.out.printf("foo: %s%n", s));
-    bus.registerConsumer("bar", s -> System.out.printf("bar: %s%n", s));
+    bus.registerConsumer("foo", s -> {
+      System.out.println(registry.getMetersAsString());
+      System.out.printf("foo: %s%n", s);
+    });
+    bus.registerConsumer("bar", s -> {
+      System.out.println(registry.getMetersAsString());
+      System.out.printf("bar: %s%n", s);
+    });
 
     bus.deliverMessage("foo", "Hello");
     bus.deliverMessage("foo", "Hello");
