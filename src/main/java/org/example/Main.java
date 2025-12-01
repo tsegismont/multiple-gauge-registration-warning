@@ -1,5 +1,6 @@
 package org.example;
 
+import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.example.micrometer.MicrometerMetrics;
 import org.example.micrometer.meters.LongGauges;
