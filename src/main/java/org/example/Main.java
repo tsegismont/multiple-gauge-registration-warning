@@ -1,11 +1,7 @@
 package org.example;
 
-import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
-import org.example.micrometer.MicrometerMetrics;
-import org.example.micrometer.meters.LongGauges;
-
-import java.util.concurrent.ConcurrentHashMap;
+import org.example.micrometer.MeterBasedMetrics;
 
 public class Main {
 
@@ -13,7 +9,8 @@ public class Main {
     SimpleMeterRegistry registry = new SimpleMeterRegistry();
     //registry.config().meterFilter(MeterFilter.ignoreTags("address"));
 
-    MessageBus bus = new MessageBus(new MicrometerMetrics(new LongGauges(new ConcurrentHashMap<>()), registry));
+//    MessageBus bus = new MessageBus(new MicrometerMetrics(new LongGauges(new ConcurrentHashMap<>()), registry));
+    MessageBus bus = new MessageBus(new MeterBasedMetrics(registry));
 
     bus.registerConsumer("foo", s -> {
       System.out.println(registry.getMetersAsString());
