@@ -6,7 +6,6 @@ import org.example.micrometer.MicrometerMetrics;
 import org.example.micrometer.meters.LongGauges;
 
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -55,6 +54,9 @@ public class Main {
       executor.submit(() -> {
         bus.deliverMessage("bar", "Hi");
       });
+
+      Thread.sleep(2000);
+      System.out.println(registry.getMetersAsString());
 
       latch.countDown();
       Thread.sleep(2000);
